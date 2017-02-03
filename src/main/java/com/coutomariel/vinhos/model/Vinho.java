@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.NumberFormat;
+
 @Entity
 public class Vinho {
 
@@ -19,6 +21,8 @@ public class Vinho {
 
 	@Enumerated(EnumType.STRING)
 	private TipoVinho tipo;
+	
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 
 	public Long getCodigo() {
