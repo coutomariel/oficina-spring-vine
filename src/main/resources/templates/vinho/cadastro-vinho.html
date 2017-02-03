@@ -56,10 +56,9 @@
 									class="fa  fa-fw  fa-home"></i><span>Cadastro vinho</span></a></li>
 							<li class="aw-menu__item"><a href="dashboard.html"><i
 									class="fa  fa-fw  fa-home"></i><span>Pesquisa vinho</span></a></li>
-	
 						</ul>
 					</nav>
-	
+		
 				</div>
 			</aside>
 	
@@ -73,15 +72,19 @@
 				</div>
 	
 				<div class="container-fluid">
-	
-					<!-- 
-					<div class="alert  alert-danger  alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<i class="fa  fa-exclamation-circle"></i> Já existe um produto com o nome informado.
-					</div>
-					 -->
-	
 					<form method="POST" class="form-vertical  js-form-loading" th:object="${vinho}">
+
+						<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span></button>
+							<th:block th:each="error : ${#fields.detailedErrors()}">
+								<div>
+									<i class="fa  fa-exclamation-circle"></i>
+									<span th:text="${error.message}"></span>
+								</div>
+							</th:block>
+						</div>
+		
 	
 						<div class="form-group">
 							<label for="nome">Nome</label> <input id="nome" type="text"
