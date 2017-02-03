@@ -81,25 +81,30 @@
 					</div>
 					 -->
 	
-					<form method="POST" class="form-vertical  js-form-loading">
+					<form method="POST" class="form-vertical  js-form-loading" th:object="${vinho}">
 	
 						<div class="form-group">
 							<label for="nome">Nome</label> <input id="nome" type="text"
-								class="form-control" />
+								class="form-control" th:field="*{nome}"/>
 						</div>
 	
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label for="tipo">Tipo</label> <input id="tipo" type="text"
-										class="form-control" />
+									<label for="tipo">Tipo</label>
+									<select id="tipo" class="form-control" th:field="*{tipo}">
+										<option value="">Selecione um tipo</option>
+										<option th:each="tipo: ${tipos}" th:value="${tipo}" 
+											th:text="#{|tipoVinho.${tipo}|}">TINTO</option>
+										
+									</select> 
 								</div>
 							</div>
 	
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label for="valor">Valor</label> <input id="valor" type="text"
-										class="form-control" placeholder="Unidades" />
+									<label for="valor">Valor</label> 
+									<input id="valor" type="text" class="form-control js-moeda" th:field="*{valor}"/>
 								</div>
 							</div>
 						</div>
@@ -124,6 +129,14 @@
 	
 		<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
 		<script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/jquery.masknumber.min.js}"></script>
+		
+		<script>
+			$('.js-moeda').maskNumber({
+				decimal: ',',
+				thousands: '.'
+			});
+		</script>
 	
 	</body>
 </html>
