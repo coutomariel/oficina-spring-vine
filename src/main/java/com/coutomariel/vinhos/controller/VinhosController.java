@@ -1,5 +1,7 @@
 package com.coutomariel.vinhos.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.coutomariel.vinhos.model.TipoVinho;
 import com.coutomariel.vinhos.model.Vinho;
 import com.coutomariel.vinhos.repository.Vinhos;
+import com.coutomariel.vinhos.repository.filter.VinhoFilter;
 
 @Controller
 public class VinhosController {
@@ -35,5 +38,13 @@ public class VinhosController {
 		vinhos.save(vinho);
 		attributes.addFlashAttribute("mensagem", "Vinho salvo com sucessso!");
 		return new ModelAndView("redirect:/vinhos/novo");
+	}
+	
+	@GetMapping("vinhos")
+	public ModelAndView pesquisar(VinhoFilter vinhoFilter){
+		ModelAndView mv = new ModelAndView("vinho/pesquisa-vinho");
+		mv.addObject("vinhos", vinhos.findByNomeContainingIgnoreCase(
+				Optional.ofNullable(vinhoFilter.getNome()).orElse("%")));
+		return mv;
 	}
 }
