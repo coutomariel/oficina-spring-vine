@@ -14,7 +14,8 @@
 		</div>
 
 		<div class="container-fluid">
-			<form method="POST" class="form-vertical  js-form-loading" th:object="${vinho}">
+			<form method="POST" class="form-vertical  js-form-loading" th:object="${vinho}"
+				th:action="@{/vinhos/novo}">
 				<div class="alert  alert-danger  alert-dismissible" role="alert"
 					th:if="${#fields.hasAnyErrors()}">
 					<button type="button" class="close" data-dismiss="alert"
@@ -32,11 +33,11 @@
 					th:if="${!#strings.isEmpty(mensagem)}">
 					<span th:text="${mensagem}"></span>
 				</div>
-
+				<input type="hidden" th:field="*{codigo}"></input> 
 
 				<div class="form-group">
-					<label for="nome">Nome</label> <input id="nome" type="text"
-						class="form-control" th:field="*{nome}" />
+					<label for="nome">Nome</label> 
+					<input id="nome" type="text" class="form-control" th:field="*{nome}" />
 				</div>
 
 				<div class="row">
